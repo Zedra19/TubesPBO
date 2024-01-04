@@ -9,8 +9,6 @@ public class Database {
     static Statement stmt;
     static ResultSet rs;
     
-    
-    
     public Database() throws SQLException {
         try{
             conn = DriverManager.getConnection(DB_URL,DB_USER,DB_PASS);
@@ -64,12 +62,7 @@ public class Database {
         }
     }
     
-    
-    
     int getLatestIdFromDatabase() throws SQLException {
-        // Implementasikan kode untuk mengambil id terakhir dari database,
-        // sesuai dengan teknologi database yang digunakan
-        // Contoh (jika menggunakan JDBC dengan database MySQL):
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/laundry", "root", "");
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT MAX(id) FROM pesanan");
@@ -80,7 +73,6 @@ public class Database {
         connection.close();
         return lastId + 1;
     }
-    
     
     public void query(String SQLString){
         try {
