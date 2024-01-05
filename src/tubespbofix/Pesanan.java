@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 import javax.swing.text.View;
 
 public class Pesanan extends DataPesanan implements FungsiPesan {
-
     public Pesanan(int no, String nama, String no_hp, String paket, int berat, String harga) {
         super(no, nama, no_hp, paket, berat, harga);
     }
