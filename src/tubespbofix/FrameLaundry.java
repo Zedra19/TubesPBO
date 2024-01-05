@@ -34,9 +34,9 @@ public class FrameLaundry extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnUpdateTab = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -60,14 +60,24 @@ public class FrameLaundry extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Laundry berkah");
 
-        jButton1.setText("Edit");
-
-        jButton2.setText("Update");
-
-        jButton3.setText("Delete");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnEditActionPerformed(evt);
+            }
+        });
+
+        btnUpdateTab.setText("Update");
+        btnUpdateTab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateTabActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -90,11 +100,11 @@ public class FrameLaundry extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(54, 54, 54)
-                .addComponent(jButton1)
+                .addComponent(btnEdit)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(btnUpdateTab)
                 .addGap(98, 98, 98)
-                .addComponent(jButton3)
+                .addComponent(btnDelete)
                 .addGap(62, 62, 62))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,9 +125,9 @@ public class FrameLaundry extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(77, 77, 77)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnEdit)
+                    .addComponent(btnUpdateTab)
+                    .addComponent(btnDelete))
                 .addContainerGap(117, Short.MAX_VALUE))
         );
 
@@ -237,9 +247,42 @@ public class FrameLaundry extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        try {
+            // 1. Setup koneksi ke database
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/laundry", "root", "");
+            // 2. Ambil baris terpilih dari jTable1
+            int selectedRow = jTable1.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(this, "Pilih baris yang ingin dihapus", "Peringatan", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            // 3. Ambil nilai no dari baris terpilih
+            int noToDelete = (int) jTable1.getValueAt(selectedRow, 0);
+            // 4. Buat dan jalankan pernyataan SQL DELETE
+            String sql = "DELETE FROM pesanan WHERE id=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, noToDelete);
+            int affectedRows = preparedStatement.executeUpdate();
+            // 5. Periksa apakah penghapusan berhasil
+            if (affectedRows > 0) {
+                JOptionPane.showMessageDialog(this, "Data berhasil dihapus", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+
+                
+                
+            } else {
+                JOptionPane.showMessageDialog(this, "Gagal menghapus data", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            // 7. Tutup koneksi
+            preparedStatement.close();
+            connection.close();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void TambahButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TambahButtonActionPerformed
         try{
@@ -322,6 +365,55 @@ public class FrameLaundry extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldNoHpActionPerformed
 
+    private void btnUpdateTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateTabActionPerformed
+        // TODO add your handling code here:
+        try {
+        // 1. Setup koneksi ke database
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/laundry", "root", "");
+
+        // 2. Buat dan jalankan pernyataan SQL
+        String sql = "SELECT id, nama, no_hp, berat, paket, harga FROM pesanan";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        // 3. Ambil hasil dan tampilkan di jTable1
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0); // Mengosongkan tabel sebelum mengisi dengan data baru
+
+        while (resultSet.next()) {
+            int no = resultSet.getInt("id");
+            String nama = resultSet.getString("nama");
+            String no_hp = resultSet.getString("no_hp");
+            double berat = resultSet.getDouble("berat");
+            String paket = resultSet.getString("paket");
+            double harga = resultSet.getDouble("harga");
+
+            // Menambahkan baris baru ke jTable1
+            model.addRow(new Object[]{no, nama, no_hp, berat, paket, harga});
+        }
+        
+        // 4. Tutup koneksi
+        resultSet.close();
+        preparedStatement.close();
+        connection.close();
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnUpdateTabActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(this, "Pilih baris yang ingin diedit", "Peringatan", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            int noToEdit = (int) jTable1.getValueAt(selectedRow, 0);
+            EditDialog dialog = new EditDialog(this, true, noToEdit);
+            dialog.setVisible(true);
+    }//GEN-LAST:event_btnEditActionPerformed
+
     
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -356,12 +448,12 @@ public class FrameLaundry extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> PaketDropDown;
     private javax.swing.JButton TambahButton;
     private javax.swing.JLabel TotalHarga;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnUpdateTab;
     private javax.swing.JTextField fieldBerat;
     private javax.swing.JTextField fieldNama;
     private javax.swing.JTextField fieldNoHp;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
