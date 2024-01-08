@@ -9,7 +9,7 @@ public class Pesanan extends DataPesanan implements FungsiPesan {
         super(no, nama, no_hp, paket, berat, harga);
     }
     
-    public void update_pesanan() throws SQLException {
+    public void refresh_pesanan() throws SQLException {
         try {
             Database db = new Database();
             String sql = "UPDATE laundry SET nama=?, no_hp=?, berat=?, paket=?, harga=? WHERE id=?";
@@ -53,15 +53,5 @@ public class Pesanan extends DataPesanan implements FungsiPesan {
         System.out.println("Terjadi kesalahan dalam mengupdate data: " + e.getMessage());
         // Ganti dengan penanganan kesalahan yang sesuai dengan aplikasi Anda
         }
-    }
-
-    @Override
-    public void refresh_halaman() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void delete_pesanan() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
