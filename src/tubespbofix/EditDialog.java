@@ -14,8 +14,8 @@ public class EditDialog extends javax.swing.JDialog {
     String paket = "";
     String harga = "";
     
-    public EditDialog(java.awt.Frame parent, boolean modal,int noToEdit) {
-        super(parent, modal);
+    public EditDialog(java.awt.Frame parent, boolean visible,int noToEdit) {
+        super(parent, visible);
         initComponents();
         this.no = noToEdit;
     }
