@@ -148,8 +148,8 @@
                         <Column editable="true" title="No" type="java.lang.Object"/>
                         <Column editable="true" title="Nama" type="java.lang.Object"/>
                         <Column editable="true" title="No HP" type="java.lang.Object"/>
-                        <Column editable="true" title="Paket" type="java.lang.Object"/>
                         <Column editable="true" title="Berat" type="java.lang.Object"/>
+                        <Column editable="true" title="Paket" type="java.lang.Object"/>
                         <Column editable="true" title="Harga" type="java.lang.Object"/>
                       </Table>
                     </Property>

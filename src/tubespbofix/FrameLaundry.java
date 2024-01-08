@@ -90,7 +90,7 @@ public class FrameLaundry extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "No", "Nama", "No HP", "Paket", "Berat", "Harga"
+                "No", "Nama", "No HP", "Berat", "Paket", "Harga"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
