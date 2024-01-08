@@ -59,7 +59,7 @@ public class FrameLaundry extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setIcon(new javax.swing.ImageIcon("D:\\1\\File Browser\\Download\\czM6Ly9tZWRpYS1wcml2YXRlLmNhbnZhLmNvbS9faThkdy9NQUY1UnhfaThkdy8xL3AucG5n.png")); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubespbofix/czM6Ly9tZWRpYS1wcml2YXRlLmNhbnZhLmNvbS9faThkdy9NQUY1UnhfaThkdy8xL3AucG5n.png"))); // NOI18N
 
         btnEdit.setText("Edit");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -176,7 +176,7 @@ public class FrameLaundry extends javax.swing.JFrame {
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setIcon(new javax.swing.ImageIcon("D:\\1\\File Browser\\Download\\czM6Ly9tZWRpYS1wcml2YXRlLmNhbnZhLmNvbS9faThkdy9NQUY1UnhfaThkdy8xL3AucG5n.png")); // NOI18N
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tubespbofix/czM6Ly9tZWRpYS1wcml2YXRlLmNhbnZhLmNvbS9faThkdy9NQUY1UnhfaThkdy8xL3AucG5n.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
