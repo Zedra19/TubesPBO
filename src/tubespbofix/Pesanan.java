@@ -49,6 +49,7 @@ public class Pesanan extends DataPesanan implements FungsiPesan {
         Database db = new Database();
         String sql = "UPDATE pesanan SET nama='"+getNama()+"', no_hp='"+getNo_hp()+"', berat='"+getBerat()+"', paket='"+getPaket()+"', harga='"+getHarga()+"'  WHERE id='"+getNo()+"'";
         db.query(sql);
+        System.out.println("Data berhasil dimasukkan ke dalam tabel.");
         } catch (SQLException e) {
         System.out.println("Terjadi kesalahan dalam mengupdate data: " + e.getMessage());
         // Ganti dengan penanganan kesalahan yang sesuai dengan aplikasi Anda
