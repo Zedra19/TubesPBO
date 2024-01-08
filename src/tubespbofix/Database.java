@@ -28,40 +28,6 @@ public class Database {
         return rs;
     }
     
-    public void insertData(int no, String nama, String no_hp, String paket, String harga,int berat){
-        try {
-            String sql = "INSERT INTO laundry (id, nama, no_hp, berat, paket, harga) VALUES (?, ?, ?)";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setInt(1,no);
-            preparedStatement.setString(2,nama);
-            preparedStatement.setString(3,no_hp);
-            preparedStatement.setInt(4,berat);
-            preparedStatement.setString(5,paket);
-            preparedStatement.setString(6,harga);
-            preparedStatement.executeUpdate();
-            System.out.println("Data berhasil dimasukkan ke dalam tabel.");
-        } catch (Exception e) {
-            System.out.println("Terdapat kesalahan saat proses pemasukkan data ke dalam tabel.");
-        }
-    }
-    
-    public void editData(int no, String nama, String no_hp, String paket, String harga,int berat){
-        try {
-            String sql = "INSERT INTO laundry (id, nama, no_hp, berat, paket, harga) VALUES (?, ?, ?)";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setInt(1,no);
-            preparedStatement.setString(2,nama);
-            preparedStatement.setString(3,no_hp);
-            preparedStatement.setInt(4,berat);
-            preparedStatement.setString(5,paket);
-            preparedStatement.setString(6,harga);
-            preparedStatement.executeUpdate();
-            System.out.println("Data berhasil dimasukkan ke dalam tabel.");
-        } catch (Exception e) {
-            System.out.println("Terdapat kesalahan saat proses pemasukkan data ke dalam tabel.");
-        }
-    }
-    
     int getLatestIdFromDatabase() throws SQLException {
         Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/laundry", "root", "");
         Statement statement = connection.createStatement();
